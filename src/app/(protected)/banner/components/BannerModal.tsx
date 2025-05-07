@@ -7,8 +7,8 @@ import { Modal } from '@mantine/core'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import '@mantine/core/styles.css';
 import { post } from '../../../lib/requests'
+import { showSuccess } from '../../../lib/toast'
 
 
 const bannerSchema = z.object({
@@ -117,7 +117,9 @@ export function BannerModal({ show, onClose, banner, isEditing, onSuccess }: Ban
         },
       })
 
+      showSuccess(isEditing ? 'Banner updated successfully!' : 'Banner created successfully!')
       onSuccess()
+      onClose()
     } catch (error) {
       console.error('Error saving banner:', error)
     } finally {

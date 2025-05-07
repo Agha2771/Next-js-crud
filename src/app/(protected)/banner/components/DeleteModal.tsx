@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Modal } from '@mantine/core'
 import { post } from '../../../lib/requests'
+import { showSuccess } from '../../../lib/toast'
 
 interface DeleteModalProps {
   show: boolean
@@ -27,12 +28,10 @@ export function DeleteModal({ show, onClose, banner, onSuccess }: DeleteModalPro
 
     try {
       setIsDeleting(true)
-      const response = await post<DeleteResponse>(`/banners/delete/${banner}`, {})
-      
-      if (response) {
-        onSuccess()
-        onClose()
-      }
+      await post(`/banners/delete/${banner}`, {})
+      showSuccess('Banner deleted successfully!')
+      onSuccess()
+      onClose()
     } catch (error) {
       console.error('Error deleting banner:', error)
     } finally {

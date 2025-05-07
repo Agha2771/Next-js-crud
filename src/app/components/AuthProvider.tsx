@@ -57,7 +57,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (jwt: string) => {
     localStorage.setItem('token', jwt)
     await fetchUser(jwt)
-    showSuccess('Login successful!')
     router.push('/dashboard')
   }
 
