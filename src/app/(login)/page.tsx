@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { post } from '../lib/requests'
-import { showSuccess } from '../lib/toast'
 
 export default function Login() {
   const [email, setEmail] = useState('')
