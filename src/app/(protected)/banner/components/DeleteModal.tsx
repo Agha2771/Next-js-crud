@@ -12,11 +12,6 @@ interface DeleteModalProps {
   onSuccess: () => void
 }
 
-interface DeleteResponse {
-  success: boolean
-  message: string
-}
-
 export function DeleteModal({ show, onClose, banner, onSuccess }: DeleteModalProps) {
   const [isDeleting, setIsDeleting] = useState(false)
 

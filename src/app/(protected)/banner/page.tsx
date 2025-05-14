@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { DataTable } from './components/DataTable'
 import { BannerModal } from './components/BannerModal'
 import { DeleteModal } from './components/DeleteModal'
-import { ActiveBannerPreview } from './components/ActiveBannerPreview'
 import type { Banner } from '../../types/banner'
 
 export default function Banner() {
@@ -64,10 +63,6 @@ export default function Banner() {
             </div>
 
             <div className="space-y-6">
-              <div>
-                {/* <ActiveBannerPreview refreshKey={refreshKey} /> */}
-              </div>
-
               <div className="overflow-hidden rounded-lg">
                 <DataTable 
                   onEdit={handleEdit}

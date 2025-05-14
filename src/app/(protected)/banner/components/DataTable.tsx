@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Banner } from '../../../types/banner'
-import { DataTable as MantineDataTable } from 'mantine-datatable'
 import { format } from 'date-fns'
 import { get } from '../../../lib/requests'
 

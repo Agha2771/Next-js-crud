@@ -2,11 +2,9 @@
 
 import { useAuth } from './AuthProvider'
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 export const Topbar = () => {
   const { auth, logout } = useAuth()
-  const router = useRouter()
 
   useEffect(() => {
    if (!auth.user) {
