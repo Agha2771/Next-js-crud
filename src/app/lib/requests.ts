@@ -39,7 +39,7 @@ interface ApiResponse<T> {
 }
 
 export const get = (url: string, config = {}) => api.get(url, config)
-export const post = async <T>(url: string, data: any, config?: AxiosRequestConfig): Promise<T> => {
+export const post = async <T, D = unknown>(url: string, data: D, config?: AxiosRequestConfig): Promise<T> => {
   const response = await api.post<ApiResponse<T>>(url, data, config)
   return response.data.data
 }

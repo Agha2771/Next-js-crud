@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Banner } from '../../../types/banner'
 import { get } from '../../../lib/requests'
+import Image from 'next/image'
 
 interface ActiveBannerPreviewProps {
   refreshKey: number
@@ -81,9 +82,11 @@ export function ActiveBannerPreview({ refreshKey }: ActiveBannerPreviewProps) {
             
             <div className="flash_sale_banner_content" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               {activeBanner.flash_image && (
-                <img
+                <Image
                   src={`${process.env.NEXT_PUBLIC_API_BASE_URL_IMAGE}${activeBanner.flash_image}`}
                   alt="Flash Sale"
+                  width={20}
+                  height={20}
                   style={{ width: '20px', height: '20px' }}
                 />
               )}

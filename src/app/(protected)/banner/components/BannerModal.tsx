@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Banner, BannerFormData } from '../../../types/banner'
+import { Banner } from '../../../types/banner'
 import { Modal } from '@mantine/core'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,13 +33,23 @@ const formatDateForInput = (isoString: string) => {
   return new Date(isoString).toISOString().slice(0, 16)
 }
 
+// Add type for form data
+type BannerFormData = {
+  name: string;
+  banner_text: string;
+  flash_sales_text: string;
+  flash_banner_color: string;
+  flash_colortimer_color: string;
+  start_time: string;
+  end_time: string;
+}
+
 export function BannerModal({ show, onClose, banner, isEditing, onSuccess }: BannerModalProps) {
   console.log('BannerModal render - show:', show) // Debug log
   
-  const [previewData, setPreviewData] = useState<Partial<BannerFormData>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { register, handleSubmit, reset, watch, formState: { errors } } = useForm({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<BannerFormData>({
     resolver: zodResolver(bannerSchema),
     defaultValues: {
       flash_banner_color: '#ffffff',
@@ -72,15 +82,8 @@ export function BannerModal({ show, onClose, banner, isEditing, onSuccess }: Ban
   }, [banner, isEditing, reset])
 
   // Replace the separate watch and useEffect with a single subscription
-  useEffect(() => {
-    const subscription = watch((value) => {
-      setPreviewData(value)
-    })
-    
-    return () => subscription.unsubscribe()
-  }, [watch])
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: BannerFormData) => {
     try {
       setIsSubmitting(true)
       const formData = new FormData()
@@ -94,7 +97,7 @@ export function BannerModal({ show, onClose, banner, isEditing, onSuccess }: Ban
       
       // Append form fields
       Object.keys(formattedData).forEach(key => {
-        formData.append(key, formattedData[key])
+        formData.append(key, formattedData[key as keyof typeof formattedData])
       })
 
       // Append files if present

@@ -15,7 +15,7 @@ export default function Login() {
     if (auth.token) {
       router.replace('/dashboard')
     }
-  }, [auth.token])
+  }, [auth.token, router])
 
   const handleLogin = async () => {
     interface LoginResponse {
