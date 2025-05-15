@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { post } from '../lib/requests'
+import { showError } from '../lib/toast'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -21,9 +22,14 @@ export default function Login() {
     interface LoginResponse {
       access_token: string
       refresh_token: string
+      message : string
     }
     const res = await post<LoginResponse>('/auth/login', { email, password })
-    login(res.access_token)
+    if (res && res.access_token) {
+      login(res.access_token)
+    }else{
+      showError(res?.message)
+    }
   }
 
   return (
