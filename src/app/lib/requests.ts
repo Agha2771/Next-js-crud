@@ -26,6 +26,8 @@ api.interceptors.response.use(
 
     if (status === 422 && Array.isArray(error.response?.data?.errors)) {
       showValidationErrors(error.response.data.errors)
+    } else if (status === 401) {
+      showError('Invalid Credentials')
     } else {
       showError(message)
     }
